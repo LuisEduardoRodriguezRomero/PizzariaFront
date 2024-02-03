@@ -1,0 +1,53 @@
+<div class="container">
+  <h3 class="alert alert-secondary text-center" style="color: rgb(0, 0, 0);">Produtos</h3>
+  <button type="button" class="btn btn-success mb-3" (click)="adicionar(modal1)">
+      <i class="fa fa-plus"></i> Adicionar Produto
+  </button>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Preco</th>
+        <th scope="col">Options</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let produto of lista; let i = index">
+
+        <th>{{produto.id}}</th>
+        <th>{{produto.nomeProduto}}</th>
+        <th>{{produto.preco}}</th>
+        <td *ngIf="!modoLancamento"> 
+          <button type="button" class="btn btn-primary" (click)="editar(modal1, produto, i)">Editar</button> 
+        </td>
+        <td *ngIf="modoLancamento"><button type="button" class="btn btn-primary" (click)="lancamento(produto)">Lançar</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="excluir(produto, i)">Excluir</button>
+        </td>
+
+
+      </tr>
+
+
+    </tbody>
+  </table>
+</div>
+
+
+  <ng-template #modal1 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Adicionar Produto</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+       
+      <app-produto-details [produto]="objetoSelecionadoParaEdicao" (retorno)="addOuEditarProduto($event)" ></app-produto-details>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
